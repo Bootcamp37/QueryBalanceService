@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: query-balance-service
+server:
+  port: 8086
+message:
+  path-balance: /api/v1/balance
