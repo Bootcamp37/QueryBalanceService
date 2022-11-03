@@ -1,11 +1,11 @@
+server:
+  port: 8087
 spring:
+  application:
+    name: query-balance-service
   config:
     import:
       - optional:configserver:http://ms-configserver:8888
-  application:
-    name: query-balance-service
-server:
-  port: 8086
 management:
   endpoint:
     web:
@@ -13,3 +13,31 @@ management:
         include: "*"
 message:
   path-balance: /api/v1/balance
+  path-customerProductDomain: http://ms-customerproduct:8082
+  path-operationDomain: http://ms-operation:8083
+  path-get-active: /api/v1/customerActivesProducts/
+  path-get-passive: /api/v1/customerPassivesProducts/
+  path-get-operation: /api/v1/operations
+resilience4j:
+  circuitbreaker:
+    instances:
+      ms-customerProduct:
+        register-health-indicator: true
+        event-consumer-buffer-size: 10
+        failure-rate-threshold: 50
+        minimumNumberOfCalls: 5
+        automatic-transition-from-open-to-half-open-enabled: true
+        waitDurationInOpenState: 2s
+        permittedNumberOfCallsInHalfOpenState: 3
+        slidingWindowSize: 10
+        slidingWindowType: COUNT_BASED
+      ms-operations:
+        register-health-indicator: true
+        event-consumer-buffer-size: 10
+        failure-rate-threshold: 50
+        minimumNumberOfCalls: 5
+        automatic-transition-from-open-to-half-open-enabled: true
+        waitDurationInOpenState: 2s
+        permittedNumberOfCallsInHalfOpenState: 3
+        slidingWindowSize: 10
+        slidingWindowType: COUNT_BASED
