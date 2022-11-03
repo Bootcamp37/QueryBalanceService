@@ -6,6 +6,7 @@ import com.nttdata.bootcamp.QueryBalanceService.domain.dto.MovementResponse;
 import com.nttdata.bootcamp.QueryBalanceService.domain.dto.OperationResponse;
 import com.nttdata.bootcamp.QueryBalanceService.infraestructure.IQueryBalanceService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.HttpStatus;
@@ -17,6 +18,7 @@ import reactor.core.publisher.Mono;
 @RestController
 @RequestMapping("${message.path-balance}")
 @RefreshScope
+@Slf4j
 public class QueryBalanceController {
     @Autowired
     private final IQueryBalanceService service;
@@ -26,12 +28,14 @@ public class QueryBalanceController {
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(path = "/passive/movement/{id}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Flux<OperationResponse> getMovementPassive(@PathVariable String id){
+        log.debug("====> QueryBalanceController: GetMovementPassive");
         return service.getMovementPassive(id);
     }
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(path = "/active/movement/{id}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Flux<MovementResponse> getMovementActive(@PathVariable String id){
+        log.debug("====> QueryBalanceController: GetMovementActive");
         return service.getMovementActive(id);
     }
     // Consultas de saldo
@@ -39,12 +43,14 @@ public class QueryBalanceController {
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(path = "/passive/{id}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Mono<CustomerPassiveProductResponse> getBalancePassive(@PathVariable String id){
+        log.debug("====> QueryBalanceController: GetBalancePassive");
         return service.getBalancePassive(id);
     }
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(path = "/active/{id}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Mono<CustomerActiveProductResponse> getBalanceActive(@PathVariable String id){
+        log.debug("====> QueryBalanceController: GetBalanceActive");
         return service.getBalanceActive(id);
     }
 }

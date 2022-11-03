@@ -23,6 +23,7 @@ public class CustomerActiveProductRepository {
     @Autowired
     ReactiveCircuitBreakerFactory reactiveCircuitBreakerFactory;
     public Mono<CustomerActiveProductResponse> getById(String idCustomerPassiveProduct) {
+        log.debug("====> CustomerActiveProductRepository: GetById");
         WebClient webClientProduct = WebClient.builder().baseUrl(urlCustomerProduct).build();
         return webClientProduct.get()
                 .uri(pathGet+"{id}", idCustomerPassiveProduct)

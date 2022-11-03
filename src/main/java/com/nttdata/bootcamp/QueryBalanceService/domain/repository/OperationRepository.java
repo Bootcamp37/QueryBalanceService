@@ -25,6 +25,7 @@ public class OperationRepository {
     @Autowired
     ReactiveCircuitBreakerFactory reactiveCircuitBreakerFactory;
     public Flux<OperationResponse> getAll() {
+        log.debug("====> OperationRepository: GetAll");
         WebClient webClientProduct = WebClient.builder().baseUrl(urlOperation).build();
         return webClientProduct.get()
                 .uri(pathGet)
