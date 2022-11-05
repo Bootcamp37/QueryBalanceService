@@ -22,11 +22,12 @@ public class CustomerActiveProductRepository {
     public String pathGet;
     @Autowired
     ReactiveCircuitBreakerFactory reactiveCircuitBreakerFactory;
+
     public Mono<CustomerActiveProductResponse> getById(String idCustomerPassiveProduct) {
-        log.debug("====> CustomerActiveProductRepository: GetById");
+        log.info("====> CustomerActiveProductRepository: GetById");
         WebClient webClientProduct = WebClient.builder().baseUrl(urlCustomerProduct).build();
         return webClientProduct.get()
-                .uri(pathGet+"{id}", idCustomerPassiveProduct)
+                .uri(pathGet + "{id}", idCustomerPassiveProduct)
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
                 .bodyToMono(CustomerActiveProductResponse.class)

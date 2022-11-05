@@ -1,6 +1,5 @@
 package com.nttdata.bootcamp.QueryBalanceService.domain.repository;
 
-import com.nttdata.bootcamp.QueryBalanceService.domain.dto.CustomerPassiveProductResponse;
 import com.nttdata.bootcamp.QueryBalanceService.domain.dto.OperationResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,7 +10,6 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 
 @Slf4j
 @Repository
@@ -24,8 +22,10 @@ public class OperationRepository {
     public String pathGet;
     @Autowired
     ReactiveCircuitBreakerFactory reactiveCircuitBreakerFactory;
+
     public Flux<OperationResponse> getAll() {
-        log.debug("====> OperationRepository: GetAll");
+        log.info("====> OperationRepository: GetAll");
+        log.info("====> OperationRepository: Llamada " + urlOperation + pathGet);
         WebClient webClientProduct = WebClient.builder().baseUrl(urlOperation).build();
         return webClientProduct.get()
                 .uri(pathGet)

@@ -1,6 +1,5 @@
 package com.nttdata.bootcamp.QueryBalanceService.domain.repository;
 
-import com.nttdata.bootcamp.QueryBalanceService.domain.dto.CustomerActiveProductResponse;
 import com.nttdata.bootcamp.QueryBalanceService.domain.dto.CustomerPassiveProductResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,11 +22,12 @@ public class CustomerPassiveProductRepository {
     public String pathGet;
     @Autowired
     ReactiveCircuitBreakerFactory reactiveCircuitBreakerFactory;
+
     public Mono<CustomerPassiveProductResponse> getById(String idCustomerPassiveProduct) {
-        log.debug("====> CustomerPassiveProductRepository: GetById");
+        log.info("====> CustomerPassiveProductRepository: GetById");
         WebClient webClientProduct = WebClient.builder().baseUrl(urlCustomerProduct).build();
         return webClientProduct.get()
-                .uri(pathGet+"{id}", idCustomerPassiveProduct)
+                .uri(pathGet + "{id}", idCustomerPassiveProduct)
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
                 .bodyToMono(CustomerPassiveProductResponse.class)

@@ -18,6 +18,12 @@ message:
   path-get-active: /api/v1/customerActivesProducts/
   path-get-passive: /api/v1/customerPassivesProducts/
   path-get-operation: /api/v1/operations
+  path-paymentDomain: http://ms-payment:8080
+  path-get-payment: /api/v1/payments
+  path-shoppingDomain: http://ms-shopping:8080
+  path-get-shopping: /api/v1/shoppings
+
+
 resilience4j:
   circuitbreaker:
     instances:
@@ -32,6 +38,26 @@ resilience4j:
         slidingWindowSize: 10
         slidingWindowType: COUNT_BASED
       ms-operations:
+        register-health-indicator: true
+        event-consumer-buffer-size: 10
+        failure-rate-threshold: 50
+        minimumNumberOfCalls: 5
+        automatic-transition-from-open-to-half-open-enabled: true
+        waitDurationInOpenState: 2s
+        permittedNumberOfCallsInHalfOpenState: 3
+        slidingWindowSize: 10
+        slidingWindowType: COUNT_BASED
+      ms-payments:
+        register-health-indicator: true
+        event-consumer-buffer-size: 10
+        failure-rate-threshold: 50
+        minimumNumberOfCalls: 5
+        automatic-transition-from-open-to-half-open-enabled: true
+        waitDurationInOpenState: 2s
+        permittedNumberOfCallsInHalfOpenState: 3
+        slidingWindowSize: 10
+        slidingWindowType: COUNT_BASED
+      ms-shopping:
         register-health-indicator: true
         event-consumer-buffer-size: 10
         failure-rate-threshold: 50

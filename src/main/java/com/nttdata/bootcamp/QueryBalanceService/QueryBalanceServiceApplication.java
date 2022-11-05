@@ -8,8 +8,8 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 @EnableEurekaClient
 public class QueryBalanceServiceApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(QueryBalanceServiceApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(QueryBalanceServiceApplication.class, args);
+    }
 
 }
