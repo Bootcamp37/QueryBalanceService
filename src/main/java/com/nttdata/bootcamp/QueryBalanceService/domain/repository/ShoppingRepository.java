@@ -1,8 +1,10 @@
 package com.nttdata.bootcamp.QueryBalanceService.domain.repository;
 
+import com.nttdata.bootcamp.QueryBalanceService.domain.dto.MovementsResponse;
 import com.nttdata.bootcamp.QueryBalanceService.domain.dto.OperationActiveResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.client.circuitbreaker.ReactiveCircuitBreakerFactory;
@@ -23,21 +25,27 @@ public class ShoppingRepository {
     @Autowired
     ReactiveCircuitBreakerFactory reactiveCircuitBreakerFactory;
 
-    public Flux<OperationActiveResponse> getAll() {
+    public Flux<MovementsResponse> getAll() {
         log.info("====> ShoppingRepository: GetAll");
         log.info("====> OperationRepository: Llamada " + urlShopping + pathGet);
         WebClient webClientProduct = WebClient.builder().baseUrl(urlShopping).build();
         return webClientProduct.get()
                 .uri(pathGet)
-                .accept(MediaType.APPLICATION_JSON)
+                .accept(MediaType.valueOf(MediaType.TEXT_EVENT_STREAM_VALUE))
                 .retrieve()
                 .bodyToFlux(OperationActiveResponse.class)
                 .transform(it -> reactiveCircuitBreakerFactory.create(SHOPPING_SERVICE)
                         .run(it, throwable -> Flux.just(new OperationActiveResponse()))
                 )
                 .map(e -> {
-                    e.setType("SHOPPING");
+                    log.info("Respuesta => " + e.toString());
                     return e;
+                })
+                .map(e -> {
+                    MovementsResponse movementsResponse = new MovementsResponse();
+                    BeanUtils.copyProperties(e, movementsResponse);
+                    movementsResponse.setType("SHOPPING");
+                    return movementsResponse;
                 });
     }
 }

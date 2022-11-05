@@ -7,9 +7,10 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class OperationActiveResponse {
+public class MovementsResponse {
     private String id;
     private String customerActiveProductId;
     private Double amount;
     private String date;
+    private String type;
 }

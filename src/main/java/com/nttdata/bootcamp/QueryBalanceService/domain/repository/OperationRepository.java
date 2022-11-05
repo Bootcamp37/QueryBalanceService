@@ -29,11 +29,15 @@ public class OperationRepository {
         WebClient webClientProduct = WebClient.builder().baseUrl(urlOperation).build();
         return webClientProduct.get()
                 .uri(pathGet)
-                .accept(MediaType.APPLICATION_JSON)
+                .accept(MediaType.valueOf(MediaType.TEXT_EVENT_STREAM_VALUE))
                 .retrieve()
                 .bodyToFlux(OperationResponse.class)
                 .transform(it -> reactiveCircuitBreakerFactory.create(OPERATION_SERVICE)
                         .run(it, throwable -> Flux.just(new OperationResponse()))
-                );
+                )
+                .map(e -> {
+                    log.info("Respuesta => " + e.toString());
+                    return e;
+                });
     }
 }

@@ -2,7 +2,7 @@ package com.nttdata.bootcamp.QueryBalanceService.domain;
 
 import com.nttdata.bootcamp.QueryBalanceService.domain.dto.CustomerActiveProductResponse;
 import com.nttdata.bootcamp.QueryBalanceService.domain.dto.CustomerPassiveProductResponse;
-import com.nttdata.bootcamp.QueryBalanceService.domain.dto.OperationActiveResponse;
+import com.nttdata.bootcamp.QueryBalanceService.domain.dto.MovementsResponse;
 import com.nttdata.bootcamp.QueryBalanceService.domain.dto.OperationResponse;
 import com.nttdata.bootcamp.QueryBalanceService.domain.repository.*;
 import com.nttdata.bootcamp.QueryBalanceService.infraestructure.IQueryBalanceService;
@@ -55,7 +55,7 @@ public class QueryBalanceService implements IQueryBalanceService {
     }
 
     @Override
-    public Flux<OperationActiveResponse> getMovementActive(String customerProductId) {
+    public Flux<MovementsResponse> getMovementActive(String customerProductId) {
         log.info("====> QueryBalanceService: GetMovementActive");
         return shoppingRepository.getAll()
                 .filter(e -> e.getCustomerActiveProductId().equals(customerProductId))

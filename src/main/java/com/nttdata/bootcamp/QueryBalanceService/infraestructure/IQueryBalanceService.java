@@ -2,7 +2,7 @@ package com.nttdata.bootcamp.QueryBalanceService.infraestructure;
 
 import com.nttdata.bootcamp.QueryBalanceService.domain.dto.CustomerActiveProductResponse;
 import com.nttdata.bootcamp.QueryBalanceService.domain.dto.CustomerPassiveProductResponse;
-import com.nttdata.bootcamp.QueryBalanceService.domain.dto.OperationActiveResponse;
+import com.nttdata.bootcamp.QueryBalanceService.domain.dto.MovementsResponse;
 import com.nttdata.bootcamp.QueryBalanceService.domain.dto.OperationResponse;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -14,5 +14,5 @@ public interface IQueryBalanceService {
 
     Flux<OperationResponse> getMovementPassive(String customerProductId);
 
-    Flux<OperationActiveResponse> getMovementActive(String customerProductId);
+    Flux<MovementsResponse> getMovementActive(String customerProductId);
 }

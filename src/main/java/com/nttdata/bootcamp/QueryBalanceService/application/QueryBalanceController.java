@@ -2,7 +2,7 @@ package com.nttdata.bootcamp.QueryBalanceService.application;
 
 import com.nttdata.bootcamp.QueryBalanceService.domain.dto.CustomerActiveProductResponse;
 import com.nttdata.bootcamp.QueryBalanceService.domain.dto.CustomerPassiveProductResponse;
-import com.nttdata.bootcamp.QueryBalanceService.domain.dto.OperationActiveResponse;
+import com.nttdata.bootcamp.QueryBalanceService.domain.dto.MovementsResponse;
 import com.nttdata.bootcamp.QueryBalanceService.domain.dto.OperationResponse;
 import com.nttdata.bootcamp.QueryBalanceService.infraestructure.IQueryBalanceService;
 import lombok.RequiredArgsConstructor;
@@ -36,7 +36,7 @@ public class QueryBalanceController {
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(path = "/active/movement/{id}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public Flux<OperationActiveResponse> getMovementActive(@PathVariable String id) {
+    public Flux<MovementsResponse> getMovementActive(@PathVariable String id) {
         log.info("====> QueryBalanceController: GetMovementActive");
         return service.getMovementActive(id);
     }
