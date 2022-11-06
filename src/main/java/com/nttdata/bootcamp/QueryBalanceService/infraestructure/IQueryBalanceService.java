@@ -15,4 +15,6 @@ public interface IQueryBalanceService {
     Flux<OperationResponse> getMovementPassive(String customerProductId);
 
     Flux<MovementsResponse> getMovementActive(String customerProductId);
+
+    Flux<Void> getCommission(String start, String end);
 }

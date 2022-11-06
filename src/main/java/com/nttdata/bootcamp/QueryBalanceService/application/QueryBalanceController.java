@@ -57,4 +57,14 @@ public class QueryBalanceController {
         log.info("====> QueryBalanceController: GetBalanceActive");
         return service.getBalanceActive(id);
     }
+
+    // Reporte de todas las comisiones
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping(path = "/commission/{start}/{end}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public Flux<Void> get(@PathVariable String start, @PathVariable String end) {
+        log.info("====> QueryBalanceController: Get");
+        return service.getCommission(start, end);
+    }
+
 }

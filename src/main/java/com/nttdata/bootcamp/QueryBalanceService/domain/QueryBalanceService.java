@@ -63,4 +63,14 @@ public class QueryBalanceService implements IQueryBalanceService {
                         .filter(e -> e.getCustomerActiveProductId().equals(customerProductId)))
                 .sort((e1, e2) -> e1.getDate().compareTo(e2.getDate()));
     }
+
+    @Override
+    public Flux<Void> getCommission(String start, String end) {
+        log.info("Start ==> " + start);
+        log.info("End   ==> " + end);
+
+        // Obtener todos los productos pasivos
+        // Obtener todas las operaciones
+        return null;
+    }
 }
