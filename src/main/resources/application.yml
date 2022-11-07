@@ -5,7 +5,11 @@ spring:
     name: query-balance-service
   config:
     import:
-      - optional:configserver:http://ms-configserver:8888
+      - optional:configserver:https://ms-config.azurewebsites.net
+eureka:
+  client:
+    service-url:
+      defaultZone: https://ms-discovery.azurewebsites.net/eureka/
 management:
   endpoint:
     web:
@@ -13,17 +17,15 @@ management:
         include: "*"
 message:
   path-balance: /api/v1/balance
-  path-customerProductDomain: http://ms-customerproduct:8082
-  path-operationDomain: http://ms-operation:8083
+  path-customerProductDomain: https://ms-customerproduct.azurewebsites.net
+  path-operationDomain: https://ms-operation.azurewebsites.net
   path-get-active: /api/v1/customerActivesProducts/
   path-get-passive: /api/v1/customerPassivesProducts/
   path-get-operation: /api/v1/operations
-  path-paymentDomain: http://ms-payment:8080
+  path-paymentDomain: https://ms-payment-bc7.azurewebsites.net
   path-get-payment: /api/v1/payments
-  path-shoppingDomain: http://ms-shopping:8080
+  path-shoppingDomain: https://ms-shopping-bc37.azurewebsites.net
   path-get-shopping: /api/v1/shoppings
-
-
 resilience4j:
   circuitbreaker:
     instances:
